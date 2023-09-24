@@ -1,0 +1,122 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type PostComment {
+  id: String!
+  comment: String!
+  author: User!
+  likes: [User!]!
+  post: Post!
+}
+
+type Post {
+  id: String!
+  title: String!
+  body: String!
+  images: [String!]!
+  category: String!
+  slug: String
+  tags: [String!]!
+  author: User
+  likes: [User!]!
+  comments: [PostComment!]!
+}
+
+type User {
+  id: String!
+  name: String
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+  bio: String
+  image: String
+  gender: String
+  dob: String
+  phone: String
+  role: UserRole!
+  posts: [Post!]
+  status: UserStatus!
+  isVerified: Boolean!
+}
+
+enum UserRole {
+  admin
+  developer
+  editor
+  user
+}
+
+enum UserStatus {
+  active
+  suspended
+  blocked
+}
+
+type LoginUserResponse {
+  id: String!
+  authToken: String!
+  role: String!
+  status: String!
+}
+
+type Query {
+  getHello: String!
+  getUsers: [User!]!
+  getUserById(id: String!): User!
+  getUserByEmail(email: String!): User!
+  getPosts: [Post!]!
+  getPostById(id: String!): Post!
+}
+
+type Mutation {
+  updateUser(input: UpdateUserInput!): User!
+  deleteUser(id: String!): User!
+  createPost(input: CreatePostInput!): Post!
+  updatePost(input: UpdatePostInput!): Post!
+  deletePost(id: String!): Post!
+  signUp(input: CreateUserInput!): User!
+  login(input: LoginUserInput!): LoginUserResponse!
+}
+
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+  id: String!
+  bio: String
+  gender: String
+  dob: String
+  phone: String
+}
+
+input CreatePostInput {
+  title: String!
+  body: String!
+  images: [String!]
+  tags: [String!]!
+  category: String!
+}
+
+input UpdatePostInput {
+  title: String
+  body: String
+  images: [String!]
+  tags: [String!]
+  category: String
+  id: String!
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
